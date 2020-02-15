@@ -14,11 +14,15 @@ func curriedSum (a) {
    }
 }
 
-curriedSum(3)(4)
+val smallNumber = sin(30)
+val seven = curriedSum(3)(4)
+
+log(seven)
+log(smallNumber)
 `
 
 function run (code) {
   return interpret(parser.parse(code))
 }
 
-console.log(run(code))
+run(code)

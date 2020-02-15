@@ -34,8 +34,6 @@ function scope ({ parent, env }) {
   return { parent, env }
 }
 
-let callstack = stack(frame(scope({ parent: null, env: {} })))
-
 function invokeFunction (fn, args) {
   const interpretedArgs = fn.args.map((arg, i) => [arg.value, interpret(args[i])])
 
@@ -65,6 +63,18 @@ function lookup (scope, id) {
   return lookup(scope.parent, id)
 }
 
+function makeDefiner (scope) {
+  return function define (id, body) {
+    scope.env[id] = { isNative: true, id, body }
+  }
+}
+
+let callstack = stack(frame(scope({ parent: null, env: {} })))
+const define = makeDefiner(head(callstack).scope)
+
+define('sin', Math.sin)
+define('log', console.log)
+
 function interpret (node) {
   switch (node.type) {
     case 'PROGRAM':
@@ -91,6 +101,10 @@ function interpret (node) {
 
     case 'FUNCTION_CALL': {
       const fn = interpret(node.callee)
+
+      if (fn.isNative) {
+        return fn.body(...node.args.map(interpret))
+      }
 
       invokeFunction(fn, node.args)
 
