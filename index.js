@@ -154,6 +154,9 @@ function interpret (node) {
      declareFunction(node.id.value, node)
      return node.body
 
+   case 'CONDITION':
+      return interpret(node.cond) ? interpret(node.ifTrue) : interpret(node.ifFalse)
+
    case 'FUNCTION_CALL':
      const fn = interpret(node.callee)
 
