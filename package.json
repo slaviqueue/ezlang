@@ -1,0 +1,22 @@
+{
+  "name": "ezlang",
+  "version": "1.0.0",
+  "description": "simple language developed to practice in implementing lexical scopes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slaviqueue/ezlang.git"
+  },
+  "author": "slaviqueue",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/slaviqueue/ezlang/issues"
+  },
+  "homepage": "https://github.com/slaviqueue/ezlang#readme",
+  "dependencies": {
+    "pegjs": "^0.10.0"
+  }
+}
