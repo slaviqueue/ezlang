@@ -47,7 +47,11 @@ function declareVariable (id, value) {
 
 function declareFunction (id, fn) {
   const fnWithScope = { ...fn, scope: scope({ env: {}, parent: head(callstack).scope }) }
-  declareVariable(id, fnWithScope)
+
+  if (id) {
+    declareVariable(id, fnWithScope)
+  }
+
   return fnWithScope
 }
 
@@ -93,7 +97,7 @@ function interpret (node) {
       return Number(node.value)
 
     case 'FUNCTION_DECLARATION': {
-      return declareFunction(node.id.value, node)
+      return declareFunction((node.id || {}).value, node)
     }
 
     case 'CONDITION':

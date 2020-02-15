@@ -9,7 +9,7 @@ func fac (n) {
 fac(10)
 
 func curriedSum (a) {
-   func sum (b) {
+   func (b) {
       a + b
    }
 }
