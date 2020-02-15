@@ -11,8 +11,6 @@ Statement
 Expression
   = Equality
   / Addable
-  / Multipliable
-  / PrimaryExpression
 
 PrimaryExpression
   = FunctionDeclaration
@@ -36,15 +34,17 @@ Assigment
   { return { type: 'ASSIGMENT', id, value } }
 
 Addable
-  = left:PrimaryExpression ws type:('-' / '+') ws right:Expression
+  = left:Multipliable ws type:('-' / '+') ws right:Expression
   { return { type, left, right } }
+  / Multipliable
 
 Multipliable
-  = left:PrimaryExpression ws type:('*' / '/') ws right:Expression
+  = left:PrimaryExpression ws type:('*' / '/') ws right:Multipliable
   { return { type, left, right } }
+  / PrimaryExpression
 
 Equality
-  = left:PrimaryExpression ws '==' ws right:Expression
+  = left:Addable ws '==' ws right:Expression
   { return { type: 'EQUALITY', left, right } }
 
 Condition
