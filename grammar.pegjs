@@ -1,4 +1,4 @@
-```Program
+Program
  = ws body:(res:(Statement / Expression / PrimaryExpression) ws { return res })*
  { return { type: 'PROGRAM', body } }
 
@@ -72,5 +72,5 @@ strict_ws
   / "\n"
   / "\f"
   / " "
-  / "\u00A0")
-  / "\uFEFF"```
+  / "\u00A0"
+  / "\uFEFF")
