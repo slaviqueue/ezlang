@@ -62,7 +62,7 @@ pure func really_impure_stuff () {
 ### Oneliners
 
 ```
-func fib (n1, n2) -> n <= 1 ? n : fib (n - 1) + fib (n - 2) 
+func fib (n1, n2) -> if n <= 1 then n else fib (n - 1) + fib (n - 2) 
 ```
 
 ### Pattern matching
