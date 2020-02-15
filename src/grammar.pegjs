@@ -1,44 +1,55 @@
 Program
- = ws body:(res:(Statement / Expression / PrimaryExpression) ws { return res })*
- { return { type: 'PROGRAM', body } }
+  = ws body:(res:(Statement / Expression / PrimaryExpression) ws { return res })*
+  { return { type: 'PROGRAM', body } }
 
 Statement
- = VariableDeclaration
- / Assigment
- / Expression
- / Return
+  = VariableDeclaration
+  / Assigment
+  / Expression
+  / Return
 
 Expression
- = Addition
+  = Equality
+  / Addable
+  / Multipliable
+  / PrimaryExpression
 
 PrimaryExpression
- = FunctionDeclaration
- / CurriedFunctionCall
- / FunctionCall
- / Identifier
- / Number
- / Condition
+  = FunctionDeclaration
+  / Condition
+  / CurriedFunctionCall
+  / FunctionCall
+  / Identifier
+  / Number
+  / Group
 
 FunctionDeclaration
- = 'func' strict_ws id:Identifier ws '(' ws args:ArgumentsList? ')' ws '{' ws body:(body:Program ws { return body }) '}'
- { return { type: 'FUNCTION_DECLARATION', args, id, body } }
+  = 'func' strict_ws id:Identifier ws '(' ws args:ArgumentsList? ')' ws '{' ws body:(body:Program ws { return body }) '}'
+  { return { type: 'FUNCTION_DECLARATION', args, id, body } }
 
 VariableDeclaration
- = 'val' strict_ws id:Identifier ws '=' ws value:(Expression / PrimaryExpression)
- { return { type: 'VARIABLE_DECLARATION', id, value } }
+  = 'val' strict_ws id:Identifier ws '=' ws value:(Expression / PrimaryExpression)
+  { return { type: 'VARIABLE_DECLARATION', id, value } }
 
 Assigment
- = 'set!' ws id:Identifier ws '=' ws (Expression / PrimaryExpression)
- { return { type: 'ASSIGMENT', id, value } }
+  = 'set!' ws id:Identifier ws '=' ws (Expression / PrimaryExpression)
+  { return { type: 'ASSIGMENT', id, value } }
 
-Addition
- = left:PrimaryExpression ws '+' ws right:Addition
- { return { type: 'PLUS', left, right } }
- / PrimaryExpression
+Addable
+  = left:PrimaryExpression ws type:('-' / '+') ws right:Expression
+  { return { type, left, right } }
+
+Multipliable
+  = left:PrimaryExpression ws type:('*' / '/') ws right:Expression
+  { return { type, left, right } }
+
+Equality
+  = left:PrimaryExpression ws '==' ws right:Expression
+  { return { type: 'EQUALITY', left, right } }
 
 Condition
   = "if" strict_ws cond:Expression strict_ws "then" strict_ws ifTrue:Expression strict_ws "else" strict_ws ifFalse:Expression
-  { type: 'CONDITION', ifTrue, ifFalse }
+  { return { type: 'CONDITION', cond, ifTrue, ifFalse } }
 
 FunctionCall "function call"
   = callee:(Identifier) ws "(" ws args:ArgumentsList? ws ")"
@@ -69,6 +80,9 @@ Number
 Return
   = 'return' strict_ws what:(Expression / PrimaryExpression)
  { return { type: 'RETURN', what } }
+
+Group
+  = '(' ws body:(expr:Expression ws { return expr })? ')' { return body }
 
 ws = strict_ws*
 
