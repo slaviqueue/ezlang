@@ -18,7 +18,7 @@ curriedSum(3)(4)
 `
 
 function run (code) {
-   return interpret(parser.parse(code))
+  return interpret(parser.parse(code))
 }
 
 console.log(run(code))

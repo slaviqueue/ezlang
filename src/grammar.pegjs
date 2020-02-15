@@ -22,7 +22,7 @@ PrimaryExpression
   / Group
 
 FunctionDeclaration
-  = 'func' strict_ws id:Identifier ws '(' ws args:ArgumentsList? ')' ws '{' ws body:(body:Program ws { return body }) '}'
+  = 'func' id:(strict_ws id:Identifier { return id })? ws '(' ws args:ArgumentsList? ')' ws '{' ws body:(body:Program ws { return body }) '}'
   { return { type: 'FUNCTION_DECLARATION', args, id, body } }
 
 VariableDeclaration
