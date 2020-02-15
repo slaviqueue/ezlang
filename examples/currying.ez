@@ -1,0 +1,9 @@
+func curriedSum (a) {
+   func (b) {
+      a + b
+   }
+}
+
+val seven = curriedSum(3)(4)
+
+log(seven)

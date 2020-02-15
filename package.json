@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/slaviqueue/ezlang#readme",
   "dependencies": {
+    "axios": "^0.19.2",
     "pegjs": "^0.10.0"
   },
   "devDependencies": {

@@ -1,3 +1,5 @@
+const axios = require('axios')
+
 function stack (...elements) {
   return elements
 }
