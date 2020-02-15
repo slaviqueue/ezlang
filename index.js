@@ -17,6 +17,11 @@ func curriedSum (a) {
 val smallNumber = sin(30)
 val seven = curriedSum(3)(4)
 
+val id = func (a) { a }
+
+val result = id(3)
+
+log(result)
 log(seven)
 log(smallNumber)
 `
