@@ -87,8 +87,6 @@ function interpret (node) {
     }
 
     case 'CONDITION':
-      console.log('i')
-      console.log(node.cond)
       return interpret(node.cond) ? interpret(node.ifTrue) : interpret(node.ifFalse)
 
     case 'FUNCTION_CALL': {
