@@ -16,7 +16,7 @@ Result of a function is the last expression inside it's body.
 ### Condition expressions
 
 ```
-val am_i_happy(my_age) {
+func am_i_happy(my_age) {
   if my_age == 17 then 1 else 0
 }
 ```
