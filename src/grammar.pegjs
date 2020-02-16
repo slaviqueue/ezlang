@@ -70,7 +70,7 @@ ParametersList
  { return args || [] }
 
 Identifier
-  = id:[a-zA-Z]+
+  = id:[a-zA-Z_]+
  { return { type: 'IDENTIFIER', value: id.join('') } }
  
 Number
