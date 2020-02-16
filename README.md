@@ -17,7 +17,7 @@ Result of a function is the last expression inside it's body.
 
 ```
 func am_i_happy(my_age) {
-  if my_age == 17 then 1 else 0
+  if my_age == 13 then 1 else 0
 }
 ```
 
